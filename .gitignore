@@ -1,0 +1,21 @@
+# Build artifacts
+obj/
+libexocortex.a
+test_runner
+
+# IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets — NEVER commit
+.env
+credentials.*
+*.secret
+*.pem
