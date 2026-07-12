@@ -1,12 +1,21 @@
 name: CI
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, production-round4-2026-07-11 ]
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo "No CI configured — customize per project requirements"
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y gcc make
+      - name: Lint
+        run: make lint
+      - name: Build
+        run: make
+      - name: Run tests
+        run: make test
+      - name: Run AddressSanitizer checks
+        run: make asan
