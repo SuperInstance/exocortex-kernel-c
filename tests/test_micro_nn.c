@@ -46,12 +46,11 @@ int test_nn_forward_shape(void) {
 /* Test: train XOR (classic test) */
 int test_nn_xor(void) {
     MicroNN nn;
-    micro_nn_create(&nn, 2, 8, 1, 0); /* regression mode for single output */
 
     double inputs[] = {0,0, 0,1, 1,0, 1,1};
     double targets[] = {0, 1, 1, 0};
     srand(42);
-    micro_nn_create(&nn, 2, 8, 1, 0);
+    micro_nn_create(&nn, 2, 8, 1, 0); /* regression mode for single output */
     micro_nn_train(&nn, inputs, targets, 4, 0.5, 2000);
 
     double out;
