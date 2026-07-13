@@ -2,6 +2,7 @@
 obj/
 libexocortex.a
 test_runner
+test_runner_asan
 
 # IDE
 *.swp

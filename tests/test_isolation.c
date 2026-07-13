@@ -81,11 +81,26 @@ int test_isolation_anomaly_detection(void) {
     return 1;
 }
 
-/* Test: fit returns error on bad input */
+/* Test: create/fit/score return errors on bad input */
 int test_isolation_error_handling(void) {
     IsolationForest forest;
     assert(isolation_forest_create(NULL, 10, 5) == -1);
     assert(isolation_forest_create(&forest, 0, 5) == -1);
+    assert(isolation_forest_create(&forest, 10, 0) == -1);
+
+    assert(isolation_forest_create(&forest, 5, 10) == 0);
+    double X[] = {1.0, 2.0, 3.0, 4.0};
+    assert(isolation_forest_fit(NULL, X, 2, 2) == -1);
+    assert(isolation_forest_fit(&forest, NULL, 2, 2) == -1);
+    assert(isolation_forest_fit(&forest, X, 0, 2) == -1);
+    assert(isolation_forest_fit(&forest, X, 2, 0) == -1);
+
+    double x[] = {1.0, 2.0};
+    assert(isolation_forest_score(&forest, x) == -1.0); /* not fitted yet */
+    isolation_forest_free(&forest);
+
+    assert(isolation_forest_score(NULL, x) == -1.0);
+    assert(isolation_forest_score(&forest, NULL) == -1.0);
     return 1;
 }
 

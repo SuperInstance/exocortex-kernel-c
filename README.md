@@ -398,7 +398,12 @@ typedef struct {
 
 ### Compute Kernel (`compute.h`)
 
-Unified interface wrapping all model types:
+**Status: partial dispatch shell.** `ComputeKernel` is a typed union that lets
+you treat any model uniformly for `compute_free()`, but it does **not** yet
+provide a single `create` call that accepts model-specific hyperparameters, nor
+a unified `train`/`predict` path. You still initialize the inner model directly
+(`micro_nn_create()`, `logistic_create()`, etc.) after calling
+`compute_create()`.
 
 ```c
 typedef struct {
